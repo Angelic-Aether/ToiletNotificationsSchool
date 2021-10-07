@@ -1,0 +1,35 @@
+input.onButtonPressed(Button.A, function () {
+    radio.sendString("in use")
+    servos.P0.setAngle(0)
+})
+input.onButtonPressed(Button.AB, function () {
+    radio.sendString("?")
+    string = "?"
+})
+radio.onReceivedString(function (receivedString) {
+    music.playTone(523, music.beat(BeatFraction.Double))
+    if (receivedString == "in use") {
+        servos.P0.setAngle(0)
+    } else if (receivedString == "?") {
+        servos.P0.setAngle(90)
+    } else if (receivedString == "free") {
+        servos.P0.setAngle(180)
+    }
+    basic.showString(receivedString)
+})
+input.onButtonPressed(Button.B, function () {
+    radio.sendString("free")
+    servos.P0.setAngle(180)
+})
+input.onPinPressed(TouchPin.P1, function () {
+    servos.P0.setAngle(90)
+})
+let string = ""
+servos.P0.setAngle(90)
+basic.showLeds(`
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    `)
